@@ -49,7 +49,7 @@ spec:
           ports:
             - containerPort: 5432
               name: db
-        - image: docker-local:5000/server
+        - image: kubernetes.docker.internal:5000/server
           name: server
           env:
             - name: DATABASE_URL
@@ -57,5 +57,5 @@ spec:
           ports:
             - containerPort: 50051
               name: server
-        - image: docker-local:5000/cli
+        - image: kubernetes.docker.internal:5000/cli
           name: client

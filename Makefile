@@ -1,6 +1,6 @@
 .DEFAULT_GOAL := all
 
-DOCKER_REGISTRY := docker-local:5000
+DOCKER_REGISTRY := kubernetes.docker.internal:5000
 
 create_docker_registry:
 	docker run -d -p 5000:5000 --restart=always --name registry -v /mnt/registry:/var/lib/registry registry:2

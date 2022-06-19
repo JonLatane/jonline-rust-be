@@ -5,7 +5,7 @@ metadata:
   labels:
     app: server
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       app: server
@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: server
-        image: docker-local:5000/server
+        image: kubernetes.docker.internal:5000/server
         env:
           - name: DATABASE_URL
             value: postgres://admin:password@db/books
@@ -45,7 +45,7 @@ metadata:
 spec:
   containers:
   - name: client
-    image: docker-local:5000/cli
+    image: kubernetes.docker.internal:5000/cli
 ---
 apiVersion: v1
 kind: Pod
