@@ -1,13 +1,13 @@
 [package]
 name = "cli"
 version = "0.1.0"
-authors = ["Oleg Gashev <oleg@gashev.net>"]
-edition = "2018"
+authors = ["Jon Latané <jon@beatscratch.io>", "Oleg Gashev <oleg@gashev.net>"]
+edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
 futures = "0.1"
-grpcio = "0.4"
-protobuf = { version = "2.8.1", features = ["with-bytes"] }
+grpcio = "0.10.2"
+protobuf = { version = "3.0.3", features = ["with-bytes"] }
 clap = "2.33"

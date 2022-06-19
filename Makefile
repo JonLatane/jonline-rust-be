@@ -25,18 +25,18 @@ delete_pod:
 	kubectl delete -f kubernetes.yaml
 
 build_docker:
-	cd dockers/build && docker build . -t $(DOCKER_REGISTRY)/build && docker push $(DOCKER_REGISTRY)/build
+	cd dockers/build && docker build . -t $(DOCKER_REGISTRY)/jonline-build && docker push $(DOCKER_REGISTRY)/jonline-build
 
-generate_source_from_proto_file: build_docker
-	docker run -v $$(pwd):/opt $(DOCKER_REGISTRY)/build:latest protoc --rust_out=. --grpc_out=. --plugin=protoc-gen-grpc=/usr/local/cargo/bin/grpc_rust_plugin books.proto
+build_protos: build_docker
+	docker run -v $$(pwd):/opt $(DOCKER_REGISTRY)/jonline-build:latest protoc --rust_out=. --grpc_out=. --plugin=protoc-gen-grpc=/usr/local/cargo/bin/grpc_rust_plugin books.proto
 
-build: generate_source_from_proto_file
-	docker run -v $$(pwd):/opt -w /opt/src $(DOCKER_REGISTRY)/build:latest /bin/bash -c "cargo build --release"
+build: build_protos
+	docker run -v $$(pwd):/opt -w /opt/src $(DOCKER_REGISTRY)/jonline-build:latest /bin/bash -c "cargo build --release"
 
 server_docker:
 	cp src/target/release/server ./dockers/server/server
-	cd dockers/server && docker build . -t $(DOCKER_REGISTRY)/server && docker push $(DOCKER_REGISTRY)/server
-	rm -f ./dockers/server/server
+	cd dockers/server && docker build . -t $(DOCKER_REGISTRY)/jonline-server && docker push $(DOCKER_REGISTRY)/server
+	rm -f ./dockers/server/jonline-server
 
 cli_docker:
 	cp src/target/release/cli ./dockers/cli/cli

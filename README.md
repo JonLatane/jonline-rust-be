@@ -1,17 +1,24 @@
-# rust-grpc-example
-Rust grpc client/server example using diesel and postgresql.
+# Jonline
+Federated, open Rust/gRPC social interaction service.
 
 # Build
 
 Requirements: docker, make
 
-Add to `/etc/hosts` file:
+## Create Local Docker Registry
+Add to `/etc/hosts` (if not already present):
 
 ```
 127.0.0.1 kubernetes.docker.internal
 ```
 
-Make push docker images into the `kubernetes.docker.internal:5000` registry.
+Add to your Docker configuration (in "Docker Engine" settins on macOS):
+
+```json
+  "insecure-registries" : ["kubernetes.docker.internal:5000"]
+```
+
+The `Makefile` is generally configured to push docker images into the `kubernetes.docker.internal:5000` registry.
 
 Up docker registry:
 
@@ -19,6 +26,7 @@ Up docker registry:
 # make create_docker_registry
 ```
 
+## Build the app
 Build:
 
 ```
